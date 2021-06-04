@@ -1,0 +1,60 @@
+Creating a database:
+
+1. create migration:
+php artisan make:migration create_dogs_table
+- This file will hold our table creation information, but until we run the actual artisan migrate command
+- we can do anything we want to it with no consequences - including throwing it away completely
+
+2. migrate database
+php artisan migrate
+- this will add the table to the database
+
+3. rollback
+php artisan migrate:rollback
+- if we make a mistake, we can use rollback to undo migrate
+- this will delete the table in the database by usin the down() method
+
+4. Seeders
+php artisan make:seeder DogsTableSeeder
+- add info to the class for the database
+- this is a way to be able to add,delete, and edit the database while you work
+use App\Models\Dog;
+- must add to use Dog class
+
+5. Model
+php artisan make:model Dog -m
+- the -m  will take the name of our model and assume a lowercase, pluralized form and creates a migration for it
+
+6. artisan database
+php artisan db:seed --class=DogsTableSeeder
+- this will put whatever is in the seed in the databse table
+
+- runs the code below
+\App\Models\Dog::truncate();
+\App\Models\Dog::create(['name' => 'Joe']);
+- must have a model in order to do this.
+
+7. use factories/seeders to get realisitc fake data
+php artisan make:factory DogFactory
+(php artisan make:factory DogFactory --model=Dog) ----- to make the facotry and model together
+- makes a factory class under app\database\factories
+
+\App\Models\Dog::truncate();
+Dog::factory(50)->create();
+--------
+'name' => $this->faker->Firstname
+---------
+$this->call(DogsTableSeeder::class);
+- add the info to the factory/seeder/database to get the info you want to generate
+
+php artisan db:seed
+- this will ad the info to the database
+
+
+
+
+
+notes:
+- Seeders - a special set of classes that allow us to populate our database over and over with the same exact data.
+- Eloquent will assume that if you create a model called "Dog" that your table name is called "dogs" and your primary key is "id
+-
