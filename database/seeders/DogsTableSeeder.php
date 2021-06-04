@@ -14,7 +14,7 @@ class DogsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Dog::truncate();
+        \App\Models\Dogs::truncate();
 
         Dog::factory(50)->create();
     }
