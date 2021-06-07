@@ -52,6 +52,22 @@ php artisan db:seed
 
 
 
+---------
+
+global traits:
+- applied to all records on that model
+
+1. add builder class to Dogs model
+use Illuminate\Database\Eloquent\Builder;
+
+2. add code to the Dogs model
+- the scope fitlers/blocks all the younger dogs
+
+3. use the scopes in tinker
+App\Models\Dogs::withoutGlobalScope('age')->get(); // result is all records
+App\Models\Dogs::all();  //result is 1 record
+App\Models\Dogs::find(2);  // result is null
+
 
 
 notes:
