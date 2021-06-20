@@ -64,13 +64,41 @@ use Illuminate\Database\Eloquent\Builder;
 - the scope fitlers/blocks all the younger dogs
 
 3. use the scopes in tinker
-App\Models\Dogs::withoutGlobalScope('age')->get(); // result is all records
+App\Models\Dogs::withoutGlobalScope('age')->get(); // result is a
+ll records
 App\Models\Dogs::all();  //result is 1 record
 App\Models\Dogs::find(2);  // result is null
+
+
+-----------
+
+Ways to add to the database table (using tinker)
+Table has id, name, age, created_at, updated_at
+
+- must make the table fillable in the model
+protected $fillable = ['name', 'age'];
+
+
+Old method:
+DB::table('dogs')->insert(['name' => 'Old Yeller', 'age' => 12]);       // result "true"
+- doesnt add any time stamps
+
+
+eloquent long way:
+$dog = new \App\Models\Dogs();              // result "App\Dogs"
+$dog->name = 'Just-right Yeller';    // result "Just-right Yeller"
+$dog->age = 6;                      // result 6
+$dog->save();                       // result "true"
+
+
+eloquent short way
+\App\Models\Dogs::create(['name' => 'Young Yeller', 'age' => 3]);
+$dog->save();                       // result "true"
+
 
 
 
 notes:
 - Seeders - a special set of classes that allow us to populate our database over and over with the same exact data.
 - Eloquent will assume that if you create a model called "Dog" that your table name is called "dogs" and your primary key is "id
--
+
